@@ -66,6 +66,9 @@ module Spree
           conf.display_facets.each do |name|
             @properties[name] ||= params["#{name}_facet"]
           end
+
+          @properties[:taxon] = params[:taxon].blank? ? nil : Spree::Taxon.find(params[:taxon])
+
         end
 
       end
