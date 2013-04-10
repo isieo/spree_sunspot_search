@@ -20,9 +20,9 @@ module SpreeSunspotSearch
       # this allows us to develop the search class without restarting the app on each change
       # I think in dev mode the engine's to_prepare block is called on each request
 
-      if Rails.env.development?
+      #if Rails.env.development? #comment off to run all the time
         Spree::Config.searcher_class = Spree::Search::SpreeSunspot::Search
-      end
+      #end
     end
 
     config.to_prepare &method(:activate).to_proc
