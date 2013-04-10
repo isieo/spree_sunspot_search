@@ -33,7 +33,7 @@ module Spree
 
             order_by(sort, order)
             with(:is_active, true)
-            keywords(query)
+            fulltext(query)
             paginate(:page => page, :per_page => per_page)
           end
 
@@ -66,9 +66,6 @@ module Spree
           conf.display_facets.each do |name|
             @properties[name] ||= params["#{name}_facet"]
           end
-
-          @properties[:taxon] = params[:taxon].blank? ? nil : Spree::Taxon.find(params[:taxon])
-
         end
 
       end

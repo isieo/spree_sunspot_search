@@ -24,8 +24,13 @@ Spree::Product.class_eval do
     # children and allow the user to intuitively 'dig down' into the product heirarchy
     # root taxon is excluded: doesn't really allow for intuitive navigation
     integer :taxon_ids, :multiple => true, :references => Spree::Taxon do
-      taxons.map { |t| t.self_and_ancestors.select { |tx| !tx.root? }.map(&:id) }.flatten(1).uniq
+      taxons.map { |t| t.self_and_ancestors.select { |tx| tx.name=="Promotions" || !tx.root? }.map(&:id) }.flatten(1).uniq
     end
+
+    text :skus do
+      variants_including_master.map { |v| v.sku }
+    end
+
 
     conf.option_facets.each do |option|
       string "#{option}_facet", :multiple => true do
